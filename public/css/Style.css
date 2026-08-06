@@ -1,0 +1,23 @@
+.background {
+  background-color: navy;
+  color: white;
+}
+.card-title {
+  height: 120px;
+}
+.date {
+  font-size: 12x;
+}
+.card-text {
+  height: 250px;
+}
+.btn:hover {
+  background-color: #31116e;
+  color: white;
+}
+.h {
+  height: 200px;
+}
+/* .mar {
+  margin-bottom: 5px;
+} */
