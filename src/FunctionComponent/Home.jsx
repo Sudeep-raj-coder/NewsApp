@@ -6,6 +6,7 @@ export default function Home(props) {
   let [articles, setArticles] = useState([]);
   let [totalResults, setTotalResults] = useState(0);
   let [page, setPage] = useState(1);
+  let [error, setError] = useState(false);
 
   async function getAPIData() {
     var response = "";
@@ -20,10 +21,16 @@ export default function Home(props) {
         );
 
       response = await response.json();
-      setArticles(response.articles);
-      setTotalResults(response.totalResults);
+
+      if (response.articles) {
+        setArticles(response.articles);
+        setTotalResults(response.totalResults);
+        setError(false);
+      } else {
+        setError(true);
+      }
     } catch (error) {
-      alert("Something Went Wrong");
+      setError(true);
     }
   }
 
@@ -41,9 +48,11 @@ export default function Home(props) {
         );
       }
       response = await response.json();
-      setArticles(prev => [...prev, ...(response.articles || []).filter(item => item)]);
+      if (response.articles) {
+        setArticles(prev => [...prev, ...(response.articles || []).filter(item => item)]);
+      }
     } catch (error) {
-      alert("Something Went Wrong");
+      // fail silently on scroll load
     }
   };
 
@@ -51,6 +60,19 @@ export default function Home(props) {
     getAPIData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
+
+  if (error) {
+    return (
+      <div className="container-fluid text-center mt-5">
+        <h5 className="text-light">
+          News data is temporarily unavailable in this environment.
+        </h5>
+        <p className="text-secondary">
+          (NewsAPI free tier restricts requests from live/production domains — this works fully on localhost.)
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="container-fluid">
