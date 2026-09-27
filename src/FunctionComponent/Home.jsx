@@ -48,8 +48,8 @@ export default function Home(props) {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     getAPIData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   return (
