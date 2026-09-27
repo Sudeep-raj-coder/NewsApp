@@ -26,8 +26,6 @@ export default function Home(props) {
       alert("Something Went Wrong");
     }
   }
-  // setPage(prev => prev + 1)
-  // setArticles(prev => prev.concat(response.articles))
 
   var fetchMoreData = async () => {
     setPage(page + 1);
@@ -50,6 +48,7 @@ export default function Home(props) {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     getAPIData();
   }, [props]);
 
